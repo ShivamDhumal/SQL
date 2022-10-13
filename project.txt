@@ -1,0 +1,63 @@
+#CREATE DATABASE project;
+#CREATE TABLE train_details(train_number int PRIMARY KEY,train_name varchar(30),train_origin varchar(30));
+#INSERT INTO train_details VALUES(10,'rajdhani','delhi'),(20,'avantika','indore'),(30,'azad hind','howrah'),(40,'ajanta','manmad'),(50,'bagmati','mysore');
+#SELECT * FROM train_details;
+#CREATE TABLE routes_of_train(train_id int,start_point varchar(30),end_point varchar(30),time_to_reach varchar(20),FOREIGN KEY (train_id) REFERENCES train_details(train_number));
+#INSERT INTO routes_of_train VALUES(10,'delhi','mumbai','20 hours'),(20,'indore','banglore','16 hours'),(30,'howrah','delhi','10 hours'),(40,'manmad','kerala','24 hours'),(50,'mysore','kashmir','15 hours');
+#SELECT * FROM routes_of_train;
+#CREATE TABLE train_schedules(train_ids int,start_date date PRIMARY KEY,time varchar(20),FOREIGN KEY (train_ids) REFERENCES train_details(train_number));
+#INSERT INTO train_schedules VALUES(10,20210211,'9:30 PM'),(20,20210302,'4:00 AM'),(30,20210522,'12:00 PM'),(40,20210809,'1:00 AM'),(50,20210101,'8:00 PM');
+#SELECT * FROM train_schedules;
+#CREATE TABLE customer_reservation(train_num int,customer_name varchar(30),customer_id int,_date date,seat_number int,FOREIGN KEY (train_num) REFERENCES train_details(train_number),FOREIGN KEY (_date) REFERENCES train_schedules(start_date));
+#INSERT INTO customer_reservation VALUES(10,'shivam',100,20210211,1012),(20,'omkar',200,20210302,571),(30,'rahul',300,20210522,1532),(40,'sanket',400,20210809,321),(50,'laxmi',500,20210101,1000);
+#--------------------------------------------------------------------------------------------------------------------------------------------------------------
+#SELECT * FROM train_details;
+#SELECT * FROM routes_of_train;
+#SELECT * FROM train_schedules;
+#SELECT * FROM customer_reservation;
+#ALTER TABLE customer_reservation ADD(contact bigint);
+#UPDATE customer_reservation SET contact=8097870964 WHERE customer_id=100;
+#UPDATE customer_reservation SET contact=8691854110 WHERE customer_id=200;
+#UPDATE customer_reservation SET contact=9819100822 WHERE customer_id=300;
+#UPDATE customer_reservation SET contact=9819620456 WHERE customer_id=400;
+#UPDATE customer_reservation SET contact=9833658194 WHERE customer_id=500;
+#SELECT * FROM customer_reservation;
+#SELECT train_name FROM train_details WHERE train_number=10;
+#SELECT train_number,train_origin FROM train_details WHERE train_name LIKE 'a%';  NAME START WITH
+#SELECT train_number,train_origin FROM train_details WHERE train_name LIKE '%i';  NAME ENDS WITH
+#SELECT REPLACE(train_origin,'indore','pune') FROM train_details;
+#SELECT concat (train_name,"has this",train_origin,"origin") FROM train_details;
+#SELECT * FROM customer_reservation ORDER BY customer_id desc;
+#SELECT max(customer_id) FROM customer_reservation;
+#SELECT MIN(customer_id) FROM customer_reservation;
+#SELECT greatest(customer_id,train_num) FROM customer_reservation;
+#SELECT (2+3) AS addition,(4-5) AS substraction,(3*2) AS multiplication,(15/3) AS division;
+#SELECT * FROM train_details WHERE train_number>20 limit 2;
+#SELECT DISTINCT train_name FROM train_details;
+#--------------------------------------------------VIEW--------------------------------------------------------------------
+#CREATE OR REPLACE VIEW train_view AS
+#SELECT upper(customer_name),seat_number FROM customer_reservation WHERE customer_id>200;
+#SELECT * FROM train_view;
+#-------------------------------------------------JOINTS-------------------------------------------------------------------
+#inner join
+#SELECT train_name,train_origin FROM train_details
+#INNER JOIN routes_of_train
+#ON train_id=train_number;
+#left outer join
+#SELECT train_name,train_origin FROM train_details
+#LEFT JOIN routes_of_train
+#ON train_id=train_number;
+#right outer join
+#SELECT train_name,train_origin FROM train_details
+#RIGHT JOIN train_schedules
+#ON train_ids=train_number;
+#--------------------------------------------BETWEEN-------------------------------------------------------------------------------
+#SELECT * FROM customer_reservation WHERE _date BETWEEN 20210101 AND 20210522;
+#--------------------------------------------subquery-----------------------------------------------------------------------------
+#SELECT start_point,end_point from routes_of_train WHERE start_point=(SELECT start_point FROM routes_of_train WHERE train_id=30);
+#----------------------------------SOME EXTRA QUERIE-------------------------------------------------
+#SELECT TRUNCATE(sqrt(24),2);#square root
+#SELECT MOD(9,4);#reminder
+#select CURRENT_DATE;#this is ho we use current date keyword in table
+#select substr("Good afternoon",1,4);
+#select trim('H' from 'Hello!');
